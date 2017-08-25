@@ -1,0 +1,2 @@
+Training Laps, Use Mirrored Data, Use left and right, correction,preprocess, crop, Net model, Net depth, Net width,epochs,train_loss,val_loss, distance driven, Problem
+3 + recover,y,n,egal,lamda average,"(70, 25), (0, 0)",LeNet,"3conv 3x3, mp2x2, relu, dense 100, dense1",32,5,0.0135,0.0136,FULL TRACK,no
