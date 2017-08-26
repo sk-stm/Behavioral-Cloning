@@ -20,11 +20,9 @@ The goals / steps of this project are the following:
 
 [image1]: ./examples/placeholder.png "Model Visualization"
 [image2]: ./3_laps_data/center_2017_08_25_14_22_57_185.jpg "Center IMage example"
-[image3]: ./examples/placeholder_small.png "Recovery Image"
-[image4]: ./examples/placeholder_small.png "Recovery Image"
-[image5]: ./examples/placeholder_small.png "Recovery Image"
-[image6]: ./examples/placeholder_small.png "Normal Image"
-[image7]: ./examples/placeholder_small.png "Flipped Image"
+[image3]: ./recover_data1/center_2017_08_25_21_27_37_640.jpg "Recovery Image"
+[image4]: ./recover_data1/center_2017_08_25_21_27_38_971.jpg "Recovery Image"
+[image5]: ./recover_data1/center_2017_08_25_21_27_39_704.jpg "Recovery Image"
 
 ## Rubric Points
 ###Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/432/view) individually and describe how I addressed each point in my implementation.  
@@ -80,48 +78,51 @@ The overall strategy for deriving a model architecture was to start with a simpl
 
 My first step was to use a convolution neural network model similar to the LeNet I thought this model might be appropriate because it was appropriate for the last project. Even though I had not much hope beacause this task seemed more diverse to me.
 
-TODO
+In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set. I found that my first model had a high mean squared error on the training set and a high mean squared error on the validation set. This implied that the model was underfitting. 
 
-In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set. I found that my first model had a ... mean squared error on the training set but a ... mean squared error on the validation set. This implied that the model was ... 
+To combat the underfiting, I modified the model so that it has more and wider layers. I also added a Dense layer before the last one.
 
-To combat the ..., I modified the model so that ...
+Then I trained the model again. Luckily both training and validationloss were low this time. 
 
-Then I ... 
+The final step was to run the simulator to see how well the car was driving around track one. There were a few spots where the vehicle fell off the track. Especially on right turns. But also on left turns depending on the starting point. To improve the driving behavior in these cases, I added the mirrored data set to the training data and recorded a recovering data set to equally let the car learn left and right turns. and how to recover if it is at the side of the road.
 
-The final step was to run the simulator to see how well the car was driving around track one. There were a few spots where the vehicle fell off the track. Especially on right turns. To improve the driving behavior in these cases, I added the mirrored data set to the training data to equally let the car learn left and right turns.
+I also implemented the possibility to use the pictures of left and right of the car, but it turned out, that therse picture were'nt necessary to make the car drive savely, if a recovering trac is used.
 
 At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road.
 
 ####2. Final Model Architecture
 
-TODO
-The final model architecture consisted of a convolution neural network with the following layers and layer sizes ...
+The final model architecture consisted of a convolution neural network with the following layers and layer sizes:
 
-Here is a visualization of the architecture 
-(note: visualizing the architecture is optional according to the project rubric)
-![alt text][image1]
+|Layer|size|output channels|
+|Conv 2d| 3x3 | 6 |
+|MaxPool 2d| 2x2 | 6 |
+|ReLU|||
+|Conv 2d| 3x3 | 16 |
+|MaxPool 2d| 2x2 | 16 |
+|ReLU|||
+|Conv 2d| 3x3 | 32 |
+|MaxPool 2d| 2x2 | 32 |
+|ReLU|||
+|Dense| 100 ||
+|Dense| 1 ||
 
 ####3. Creation of the Training Set & Training Process
 
-To capture good driving behavior, I first recorded two laps on track one using center lane driving. Here is an example image of center lane driving:
+To capture good driving behavior, I first recorded three laps on track one using center lane driving. Here is an example image of center lane driving:
 
 ![alt text][image2]
 
 I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to get back on the track if it once got off. These images show what a recovery looks like starting from the right to the left:
 
-TODO
 ![alt text][image3]
 ![alt text][image4]
 ![alt text][image5]
 
-
-TODO
-Then I repeated this process on track two in order to get more data points.
-
 To augment the data set, I also flipped images and angles thinking that this would generalize even more.
 
-After the collection process, I had 16280 number of data points. I then preprocessed this data by normalizing each pixel.
+After the collection process, I had 9176 number of data points. I then preprocessed this data by normalizing each pixel.
 
 I finally randomly shuffled the data set and put 20% of the data into a validation set. 
 
-I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 3 as evidenced by the loss of training and validation set that did not decreasy any further. I used an adam optimizer. Manually training the learning rate wasn't necessary.
+I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 5 as evidenced by the loss of training and validation set that did not decreasy any further. I used an adam optimizer. Manually training the learning rate wasn't necessary.
