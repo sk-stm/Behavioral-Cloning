@@ -94,7 +94,6 @@ At the end of the process, the vehicle is able to drive autonomously around the 
 The final model architecture consisted of a convolution neural network with the following layers and layer sizes:
 
 |Layer|size|output channels|
-|---|---|---|
 |Conv 2d| 3x3 | 6 |
 |MaxPool 2d| 2x2 | 6 |
 |ReLU|||
@@ -111,13 +110,13 @@ The final model architecture consisted of a convolution neural network with the 
 
 To capture good driving behavior, I first recorded three laps on track one using center lane driving. Here is an example image of center lane driving:
 
-![alt text][image1]
+![alt text][image2]
 
 I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to get back on the track if it once got off. These images show what a recovery looks like starting from the right to the left:
 
-![alt text][image2]
 ![alt text][image3]
 ![alt text][image4]
+![alt text][image5]
 
 To augment the data set, I also flipped images and angles thinking that this would generalize even more.
 
